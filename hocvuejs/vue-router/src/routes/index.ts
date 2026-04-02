@@ -3,11 +3,14 @@ import About from "../pages/About.vue";
 import Dashboard from "../pages/Admin/Dashboard.vue";
 import UserAdd from "../pages/Admin/Users/UserAdd.vue";
 import UserIndex from "../pages/Admin/Users/UserIndex.vue";
+import Login from "../pages/Auth/Login.vue";
 import Contact from "../pages/Contact.vue";
 import Home from "../pages/Home.vue";
 import NotFound from "../pages/NotFound.vue";
+import ProductAdd from "../pages/Products/ProductAdd.vue";
 import ProductDetail from "../pages/Products/ProductDetail.vue";
 import ProductIndex from "../pages/Products/ProductIndex.vue";
+import ProductUpdate from "../pages/Products/ProductUpdate.vue";
 import ThankYou from "../pages/ThankYou.vue";
 
 export const routes = [
@@ -18,6 +21,16 @@ export const routes = [
     path: "/san-pham/:productId",
     component: ProductDetail,
     name: "products.detail",
+  },
+  {
+    path: "/san-pham/create",
+    component: ProductAdd,
+    name: "products.create",
+  },
+  {
+    path: "/san-pham/edit/:productId",
+    component: ProductUpdate,
+    name: "products.update",
   },
   { path: "/contact", component: Contact, name: "contact" },
   { path: "/cam-on", component: ThankYou, name: "thankyou" },
@@ -47,6 +60,11 @@ export const routes = [
         ],
       },
     ],
+  },
+  {
+    path: "/auth/login",
+    component: Login,
+    name: "auth.login",
   },
   { path: "/:pathMatch(.*)*", component: NotFound, name: "not-found" },
 ];

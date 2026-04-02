@@ -6,9 +6,10 @@ use App\Models\Product;
 
 class ProductService
 {
-    public function getAll()
+    public function getAll($search = '', $limit)
     {
-        return Product::all();
+        return Product::where('name', 'like', "%$search%")->paginate($limit);
+        //TeenClass::tenhamstatic()
     }
 
     public function getOne($id)

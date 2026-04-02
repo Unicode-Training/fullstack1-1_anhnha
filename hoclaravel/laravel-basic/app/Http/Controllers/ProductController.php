@@ -12,9 +12,11 @@ class ProductController extends Controller
     {
         $this->productService = $productService;
     }
-    public function index()
+    public function index(Request $request)
     {
-        $products = $this->productService->getAll();
+        $search = $request->s;
+        $limit = $request->limit ?? 10;
+        $products = $this->productService->getAll($search, $limit);
         return response()->json([
             'message' => 'Get list product success',
             'success' => true,
@@ -75,6 +77,7 @@ class ProductController extends Controller
             'price' => 'sometimes|required',
             'description' => 'sometimes|required'
         ]);
+
         $product = $this->productService->update($id, $request->all());
         if (!$product) {
             return response()->json([

@@ -44,6 +44,24 @@
           >Admin</RouterLink
         >
       </li>
+      <li>
+        <span v-if="authStore.isLoading">Loading...</span>
+        <span v-else-if="authStore.isAuthenticated">
+          Chào, {{ authStore.user?.name }}
+        </span>
+        <span v-else>
+          <RouterLink
+            :to="{
+              name: 'auth.login',
+            }"
+            >Login</RouterLink
+          >
+        </span>
+      </li>
     </ul>
   </header>
 </template>
+<script setup lang="ts">
+import { useAuthStore } from "../store/authStore";
+const authStore = useAuthStore();
+</script>
