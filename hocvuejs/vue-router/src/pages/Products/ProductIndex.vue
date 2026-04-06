@@ -1,6 +1,7 @@
 <template>
   <h1 class="text-3xl mb-3">Products</h1>
   <RouterLink
+    v-if="authStore.isAuthenticated"
     :to="{
       name: 'products.create',
     }"
@@ -28,6 +29,7 @@
             Chi tiết
           </RouterLink>
           <RouterLink
+            v-if="authStore.isAuthenticated"
             :to="{
               name: 'products.update',
               params: {
@@ -37,6 +39,7 @@
             >Sửa</RouterLink
           >
           <span
+            v-if="authStore.isAuthenticated"
             class="cursor-pointer text-red-700"
             @click="handleDelete(product.id!)"
             >Xóa</span
@@ -59,12 +62,14 @@ const totalPage = ref(0);
 const message = ref("");
 const route = useRoute();
 const router = useRouter();
+const authStore = useAuthStore();
 import { axiosInstance } from "../../libs/axios";
 import type { Product } from "../../types/product.type";
 import { AxiosError } from "axios";
 import { RouterLink, useRoute, useRouter } from "vue-router";
 import FilterInput from "./FilterInput.vue";
 import Paginate from "./Paginate.vue";
+import { useAuthStore } from "../../store/authStore";
 const LIMIT = 3;
 const getProducts = async () => {
   try {

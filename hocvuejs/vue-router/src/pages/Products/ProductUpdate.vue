@@ -81,7 +81,11 @@ const getProduct = async () => {
   try {
     const response = await axiosInstance.get(`/products/${productId}`);
     const { data } = response.data;
-    form.value = data;
+    form.value = {
+      name: data.name,
+      price: data.price,
+      description: data.description,
+    };
   } catch (error) {
     if (error instanceof AxiosError) {
       router.push({

@@ -62,7 +62,7 @@ class ProductController extends Controller
         ]);
 
         //Gọi service
-        $product = $this->productService->create($request->all());
+        $product = $this->productService->create($request->all(), $request->user);
         return response()->json([
             'message' => 'create product success',
             'success' => true,
@@ -78,7 +78,7 @@ class ProductController extends Controller
             'description' => 'sometimes|required'
         ]);
 
-        $product = $this->productService->update($id, $request->all());
+        $product = $this->productService->update($id, $request->all(), $request->user);
         if (!$product) {
             return response()->json([
                 'message' => 'Update product failed',

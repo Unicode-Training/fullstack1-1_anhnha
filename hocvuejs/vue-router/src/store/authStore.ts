@@ -1,10 +1,11 @@
 import { defineStore } from "pinia";
 import { axiosInstance } from "../libs/axios";
+import type { User } from "../types/auth.type";
 
 export const useAuthStore = defineStore("auth", {
   state: () => {
     return {
-      user: {},
+      user: {} as User,
       isAuthenticated: false,
       isLoading: true,
     };
@@ -27,11 +28,28 @@ export const useAuthStore = defineStore("auth", {
         this.user = user;
         this.isAuthenticated = true;
       } catch {
-        this.user = {};
+        this.user = {} as User;
         this.isAuthenticated = false;
       } finally {
         this.isLoading = false;
       }
     },
+    async logout() {
+      const accessToken = localStorage.getItem("accessToken");
+      try {
+        await axiosInstance.delete(`/auth/logout`, {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        });
+      } finally {
+        localStorage.removeItem("accessToken");
+        this.isLoading = false;
+        this.user = {} as User;
+        this.isAuthenticated = false;
+      }
+    },
   },
 });
+
+//Logout --> Gọi api back-end --> Xóa localStorage --> Cập nhật lại store

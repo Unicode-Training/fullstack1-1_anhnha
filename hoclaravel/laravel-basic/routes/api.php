@@ -8,9 +8,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/products', [ProductController::class, 'index']);
 Route::get('/products/{id}', [ProductController::class, 'find']);
-Route::post('/products', [ProductController::class, 'create']);
-Route::patch('/products/{id}', [ProductController::class, 'update']);
-Route::delete('/products/{id}', [ProductController::class, 'delete']);
+Route::middleware(AuthMiddleware::class)->group(function () {
+    Route::post('/products', [ProductController::class, 'create']);
+    Route::patch('/products/{id}', [ProductController::class, 'update']);
+    Route::delete('/products/{id}', [ProductController::class, 'delete']);
+});
 
 Route::apiResource('photos', PhotoController::class);
 

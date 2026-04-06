@@ -4,3 +4,11 @@ export const axiosInstance = axios.create({
 });
 
 //frontend -> 1 url backend chung
+
+axiosInstance.interceptors.request.use(function (config) {
+  const accessToken = localStorage.getItem("accessToken");
+  if (accessToken) {
+    config.headers.Authorization = `Bearer ${accessToken}`;
+  }
+  return config;
+});

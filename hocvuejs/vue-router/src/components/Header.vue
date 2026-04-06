@@ -46,9 +46,12 @@
       </li>
       <li>
         <span v-if="authStore.isLoading">Loading...</span>
-        <span v-else-if="authStore.isAuthenticated">
-          Chào, {{ authStore.user?.name }}
-        </span>
+        <div v-else-if="authStore.isAuthenticated" class="flex gap-2">
+          <span>Chào, {{ authStore.user?.name }}</span>
+          <button class="text-red-600 cursor-pointer" @click="handleLogout">
+            Đăng xuất
+          </button>
+        </div>
         <span v-else>
           <RouterLink
             :to="{
@@ -62,6 +65,13 @@
   </header>
 </template>
 <script setup lang="ts">
+import { useRoute, useRouter } from "vue-router";
 import { useAuthStore } from "../store/authStore";
 const authStore = useAuthStore();
+const router = useRouter();
+const route = useRoute();
+const handleLogout = async () => {
+  await authStore.logout();
+  router.push(route.fullPath);
+};
 </script>

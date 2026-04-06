@@ -26,11 +26,13 @@ export const routes = [
     path: "/san-pham/create",
     component: ProductAdd,
     name: "products.create",
+    beforeEnter: authMiddleware,
   },
   {
     path: "/san-pham/edit/:productId",
     component: ProductUpdate,
     name: "products.update",
+    beforeEnter: authMiddleware,
   },
   { path: "/contact", component: Contact, name: "contact" },
   { path: "/cam-on", component: ThankYou, name: "thankyou" },

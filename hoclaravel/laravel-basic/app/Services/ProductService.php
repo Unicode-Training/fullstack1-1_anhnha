@@ -18,16 +18,22 @@ class ProductService
         return Product::find($id);
     }
 
-    public function create($data)
+    public function create($data, $user)
     {
         //$data là body
-        return Product::create($data);
+        return Product::create([
+            ...$data,
+            'added_by' => $user->id
+        ]);
     }
 
-    public function update($id, $data)
+    public function update($id, $data, $user)
     {
         //where
-        $status = Product::where('id', $id)->update($data);
+        $status = Product::where('id', $id)->update([
+            ...$data,
+            'updated_by' => $user->id
+        ]);
         if (!$status) {
             return false;
         }
