@@ -24,7 +24,6 @@ export const useAuthStore = defineStore("auth", {
           },
         });
         const user = response.data;
-
         this.user = user;
         this.isAuthenticated = true;
       } catch {
@@ -44,6 +43,7 @@ export const useAuthStore = defineStore("auth", {
         });
       } finally {
         localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
         this.isLoading = false;
         this.user = {} as User;
         this.isAuthenticated = false;

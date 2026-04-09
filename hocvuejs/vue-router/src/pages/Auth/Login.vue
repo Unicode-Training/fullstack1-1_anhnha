@@ -43,6 +43,7 @@ const handleSubmit = async () => {
     const response = await axiosInstance.post("/auth/login", form.value);
     const { data: token } = response.data;
     localStorage.setItem("accessToken", token.accessToken);
+    localStorage.setItem("refreshToken", token.refreshToken);
     authStore.profile();
     router.push({
       name: "home",

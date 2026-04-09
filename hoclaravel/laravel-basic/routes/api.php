@@ -20,6 +20,8 @@ Route::post('/auth/login', [AuthController::class, 'login']);
 Route::post('/auth/register', [AuthController::class, 'register']);
 Route::get('/auth/profile', [AuthController::class, 'profile'])->middleware(AuthMiddleware::class);
 Route::delete('/auth/logout', [AuthController::class, 'logout'])->middleware(AuthMiddleware::class);
+Route::post('/auth/refresh-token', [AuthController::class, 'refreshToken']);
+Route::delete('/auth/revoke-token/{id}', [AuthController::class, 'revokeToken'])->middleware(AuthMiddleware::class);
 
 //Update: 
 // - put: Update theo kiểu ghi đè

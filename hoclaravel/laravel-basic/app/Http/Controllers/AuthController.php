@@ -59,4 +59,26 @@ class AuthController extends Controller
         $token = $request->token;
         return $this->authService->logout($token);
     }
+
+    public function refreshToken(Request $request)
+    {
+        $refreshToken = $request->refreshToken;
+        $newToken = $this->authService->refreshToken($refreshToken);
+        if (!$newToken) {
+            return response()->json([
+                'success' => false,
+                'message' => "Refresh token failed"
+            ], 401);
+        }
+        return response()->json([
+            'success' => true,
+            'message' => 'Refresh token success',
+            'data' => $newToken
+        ]);
+    }
+
+    public function revokeToken($userId)
+    {
+        return $this->authService->revokeToken($userId);
+    }
 }
