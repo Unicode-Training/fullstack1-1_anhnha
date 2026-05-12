@@ -24,3 +24,16 @@ Ví dụ:
 Tạo file migration
 
 php artisan make:migration
+
+## Role
+
+- End User: Dữ liệu public, dữ liệu được cấp quyền: Đơn hàng, thông tin tài khoản,...
+
+- Admin User: Dữ liệu toàn quyền: CRUD
+
+## Permission
+
+- name: {module}.{action}
+
+* products.list --> Xem danh sách sản phẩm
+* products.create --> Thêm sản phẩm

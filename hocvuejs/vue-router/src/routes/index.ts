@@ -1,4 +1,5 @@
 import { authMiddleware } from "../middlewares/authMiddleware";
+import { checkAdminMiddleware } from "../middlewares/checkAdminMiddleware";
 import About from "../pages/About.vue";
 import Dashboard from "../pages/Admin/Dashboard.vue";
 import UserAdd from "../pages/Admin/Users/UserAdd.vue";
@@ -12,33 +13,69 @@ import ProductDetail from "../pages/Products/ProductDetail.vue";
 import ProductIndex from "../pages/Products/ProductIndex.vue";
 import ProductUpdate from "../pages/Products/ProductUpdate.vue";
 import ThankYou from "../pages/ThankYou.vue";
+import AccountIndex from "../pages/Accounts/Index.vue";
+import AccountProfile from "../pages/Accounts/Profile.vue";
+import AccountMyOrder from "../pages/Accounts/MyOrder.vue";
 
 export const routes = [
-  { path: "/", component: Home, name: "home" },
-  { path: "/gioi-thieu", component: About, name: "about" },
-  { path: "/san-pham", component: ProductIndex, name: "products.index" },
   {
-    path: "/san-pham/:productId",
-    component: ProductDetail,
-    name: "products.detail",
+    component: () => import("../layouts/MainLayout.vue"),
+    children: [
+      { path: "/", component: Home, name: "home" },
+      { path: "/gioi-thieu", component: About, name: "about" },
+      { path: "/san-pham", component: ProductIndex, name: "products.index" },
+      {
+        path: "/san-pham/:productId",
+        component: ProductDetail,
+        name: "products.detail",
+      },
+      {
+        path: "/san-pham/create",
+        component: ProductAdd,
+        name: "products.create",
+        beforeEnter: authMiddleware,
+      },
+      {
+        path: "/san-pham/edit/:productId",
+        component: ProductUpdate,
+        name: "products.update",
+        beforeEnter: authMiddleware,
+      },
+      { path: "/contact", component: Contact, name: "contact" },
+      { path: "/cam-on", component: ThankYou, name: "thankyou" },
+      {
+        path: "/accounts",
+        component: () => import("../pages/Accounts/Layout.vue"),
+        children: [
+          {
+            path: "",
+            component: AccountIndex,
+            name: "account.index",
+          },
+          {
+            path: "profile",
+            component: AccountProfile,
+            name: "account.profile",
+          },
+          {
+            path: "my-order",
+            component: AccountMyOrder,
+            name: "account.my-order",
+          },
+        ],
+      },
+      {
+        path: "/auth/login",
+        component: Login,
+        name: "auth.login",
+      },
+    ],
   },
-  {
-    path: "/san-pham/create",
-    component: ProductAdd,
-    name: "products.create",
-    beforeEnter: authMiddleware,
-  },
-  {
-    path: "/san-pham/edit/:productId",
-    component: ProductUpdate,
-    name: "products.update",
-    beforeEnter: authMiddleware,
-  },
-  { path: "/contact", component: Contact, name: "contact" },
-  { path: "/cam-on", component: ThankYou, name: "thankyou" },
+
   {
     path: "/admin",
-    beforeEnter: authMiddleware,
+    component: () => import("../layouts/AdminLayout.vue"),
+    beforeEnter: [authMiddleware, checkAdminMiddleware],
     children: [
       {
         path: "",
@@ -63,10 +100,6 @@ export const routes = [
       },
     ],
   },
-  {
-    path: "/auth/login",
-    component: Login,
-    name: "auth.login",
-  },
+
   { path: "/:pathMatch(.*)*", component: NotFound, name: "not-found" },
 ];

@@ -10,7 +10,11 @@ use Symfony\Component\HttpFoundation\Response;
 
 class AuthMiddleware
 {
-    public function __construct(private AuthService $authService) {}
+    private $authService = null;
+    public function __construct(AuthService $authService)
+    {
+        $this->authService = $authService;
+    }
     /**
      * Handle an incoming request.
      *
