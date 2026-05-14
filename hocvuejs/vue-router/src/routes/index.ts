@@ -16,6 +16,8 @@ import ThankYou from "../pages/ThankYou.vue";
 import AccountIndex from "../pages/Accounts/Index.vue";
 import AccountProfile from "../pages/Accounts/Profile.vue";
 import AccountMyOrder from "../pages/Accounts/MyOrder.vue";
+import RoleIndex from "../pages/Admin/Roles/RoleIndex.vue";
+import RoleUpdate from "../pages/Admin/Roles/RoleUpdate.vue";
 
 export const routes = [
   {
@@ -96,8 +98,24 @@ export const routes = [
             component: UserAdd,
             name: "admin.users.create",
           },
+
         ],
       },
+      {
+        path: "roles",
+        children: [
+          {
+            path: "",
+            component: RoleIndex,
+            name: "admin.roles.index",
+          },
+          {
+            path: "edit/:id",
+            component: RoleUpdate,
+            name: "admin.roles.update",
+          },
+        ]
+      }
     ],
   },
 

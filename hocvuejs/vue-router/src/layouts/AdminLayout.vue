@@ -7,6 +7,7 @@
       <ul>
         <li><RouterLink to="/admin">Dashboard</RouterLink></li>
         <li><RouterLink to="/admin/users">Users</RouterLink></li>
+        <li><RouterLink to="/admin/roles">Roles</RouterLink></li>
       </ul>
     </div>
     <div class="flex-1">
