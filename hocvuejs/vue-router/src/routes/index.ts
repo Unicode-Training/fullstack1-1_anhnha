@@ -11,6 +11,8 @@ import NotFound from "../pages/NotFound.vue";
 import ProductAdd from "../pages/Products/ProductAdd.vue";
 import ProductDetail from "../pages/Products/ProductDetail.vue";
 import ProductIndex from "../pages/Products/ProductIndex.vue";
+import ProductAdminIndex from "../pages/Admin/Products/ProductIndex.vue";
+import ProductAdminAdd from "../pages/Admin/Products/ProductAdd.vue";
 import ProductUpdate from "../pages/Products/ProductUpdate.vue";
 import ThankYou from "../pages/ThankYou.vue";
 import AccountIndex from "../pages/Accounts/Index.vue";
@@ -18,6 +20,8 @@ import AccountProfile from "../pages/Accounts/Profile.vue";
 import AccountMyOrder from "../pages/Accounts/MyOrder.vue";
 import RoleIndex from "../pages/Admin/Roles/RoleIndex.vue";
 import RoleUpdate from "../pages/Admin/Roles/RoleUpdate.vue";
+import RoleUser from "../pages/Admin/Roles/RoleUser.vue";
+import Forbidden from "../pages/Admin/Errors/Forbidden.vue";
 
 export const routes = [
   {
@@ -102,6 +106,23 @@ export const routes = [
         ],
       },
       {
+        path: "products",
+
+        children: [
+          {
+            path: "",
+            component: ProductAdminIndex,
+            name: "admin.products.index",
+          },
+          {
+            path: "create",
+            component: ProductAdminAdd,
+            name: "admin.products.create",
+          },
+
+        ],
+      },
+      {
         path: "roles",
         children: [
           {
@@ -114,8 +135,18 @@ export const routes = [
             component: RoleUpdate,
             name: "admin.roles.update",
           },
+          {
+            path: "users/:id",
+            component: RoleUser,
+            name: "admin.roles.user",
+          },
         ]
-      }
+      },
+      {
+        path: "forbidden",
+        component: Forbidden,
+        name: "admin.forbidden",
+      },
     ],
   },
 

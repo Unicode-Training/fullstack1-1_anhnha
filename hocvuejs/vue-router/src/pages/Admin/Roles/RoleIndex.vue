@@ -10,6 +10,7 @@
         <tr>
           <th scope="col" class="px-6 py-3 font-medium">Tên</th>
           <th scope="col" class="px-6 py-3 font-medium">Quyền</th>
+          <th scope="col" class="px-6 py-3 font-medium">Người dùng</th>
           <th scope="col" class="px-6 py-3 font-medium">Sửa</th>
           <th scope="col" class="px-6 py-3 font-medium">Xóa</th>
         </tr>
@@ -31,6 +32,17 @@
                 ? role.permissions.join(",")
                 : "Không có quyền"
             }}
+          </td>
+          <td class="px-6 py-4">
+            <RouterLink
+              :to="{
+                name: 'admin.roles.user',
+                params: {
+                  id: role.id,
+                },
+              }"
+              >Gán</RouterLink
+            >
           </td>
           <td class="px-6 py-4">
             <RouterLink

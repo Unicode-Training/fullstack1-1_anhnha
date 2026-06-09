@@ -34,15 +34,18 @@ class RoleController extends Controller
         return $this->roleService->delete($id);
     }
 
-    public function addUsers(Request $request, $id) {
+    public function updateUsers(Request $request, $id) {
         $users = $request->all();
-        return $this->roleService->addUser($id, $users);
+        return $this->roleService->updateUsers($id, $users);
     }
 
-    public function deleteUsers(Request $request, $id) {
-        $users = $request->all();
-        return $this->roleService->deleteUser($id, $users);
+    // public function deleteUsers(Request $request, $id) {
+    //     $users = $request->all();
+    //     return $this->roleService->deleteUser($id, $users);
+    // }
+    public function getUsers(Request $request, $roleId) {
+        return $this->roleService->getUsersByRole($roleId);
     }
-}
+ }
 
 //endpoint: GET /api/admin/roles

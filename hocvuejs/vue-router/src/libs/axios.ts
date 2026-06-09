@@ -25,7 +25,7 @@ axiosInstance.interceptors.response.use(
     return response;
   },
   async (error) => {
-    console.log({ error });
+
     if (error.status === 401 && error.config.url !== "/auth/refresh-token") {
       //Refresh
       if (!refreshPromise) {
@@ -48,6 +48,11 @@ axiosInstance.interceptors.response.use(
       authStore.logout();
       // window.location.reload();
     }
+
+    if (error.status === 403) {
+      window.location.href = "/admin/forbidden"
+    }
+
     return Promise.reject(error);
   },
 );

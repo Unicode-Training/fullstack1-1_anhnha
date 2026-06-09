@@ -99,16 +99,21 @@ class RoleService
        
     }
 
-    public function addUser($roleId, $users = []) {
+    public function updateUsers($roleId, $users = []) {
         $role = Role::find($roleId);
-        $role->users()->attach($users);
+        $role->users()->sync($users);
     }
 
-    public function deleteUser($roleId, $users = []) {
+    // public function deleteUser($roleId, $users = []) {
+    //     $role = Role::find($roleId);
+    //     $role->users()->detach($users);
+    // }
+
+    public function getUsersByRole($roleId) {
         $role = Role::find($roleId);
-        $role->users()->detach($users);
+        return $role->users;
     }
-}
+ }
 
 //Query n + 1
 //Exception
