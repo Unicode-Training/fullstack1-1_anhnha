@@ -33,6 +33,13 @@ export const useAuthStore = defineStore("auth", {
         this.isLoading = false;
       }
     },
+    can(name: string) {
+      if (this.user.role === 'ADMIN') {
+        return true;
+      }
+      const permissions = this.user.permissions;
+      return permissions.includes(name);
+    },
     async logout() {
       const accessToken = localStorage.getItem("accessToken");
       try {

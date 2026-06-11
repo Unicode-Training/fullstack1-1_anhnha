@@ -22,6 +22,7 @@ import RoleIndex from "../pages/Admin/Roles/RoleIndex.vue";
 import RoleUpdate from "../pages/Admin/Roles/RoleUpdate.vue";
 import RoleUser from "../pages/Admin/Roles/RoleUser.vue";
 import Forbidden from "../pages/Admin/Errors/Forbidden.vue";
+import { permissionMiddleware } from "../middlewares/permissionMiddleware.ts";
 
 export const routes = [
   {
@@ -90,40 +91,43 @@ export const routes = [
       },
       {
         path: "users",
-
         children: [
           {
             path: "",
             component: UserIndex,
             name: "admin.users.index",
+            beforeEnter: [permissionMiddleware('users.list')],
           },
           {
             path: "create",
             component: UserAdd,
             name: "admin.users.create",
+            beforeEnter: [permissionMiddleware('users.create')],
           },
 
         ],
       },
       {
         path: "products",
-
         children: [
           {
             path: "",
             component: ProductAdminIndex,
             name: "admin.products.index",
+            beforeEnter: [permissionMiddleware('products.list')],
           },
           {
             path: "create",
             component: ProductAdminAdd,
             name: "admin.products.create",
+            beforeEnter: [permissionMiddleware('products.create')],
           },
 
         ],
       },
       {
         path: "roles",
+        beforeEnter: [permissionMiddleware('roles')],
         children: [
           {
             path: "",

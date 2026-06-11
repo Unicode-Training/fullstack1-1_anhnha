@@ -49,9 +49,9 @@ axiosInstance.interceptors.response.use(
       // window.location.reload();
     }
 
-    if (error.status === 403) {
-      window.location.href = "/admin/forbidden"
-    }
+    // if (error.status === 403) {
+    //   window.location.href = "/admin/forbidden"
+    // }
 
     return Promise.reject(error);
   },
@@ -68,3 +68,6 @@ const requestRefreshToken = async () => {
     return false;
   }
 };
+
+//frontend: camelCase --> Dùng interceptor response
+//backend: underscore --> lấy trực tiếp tên cột từ db --> Dùng transfomer

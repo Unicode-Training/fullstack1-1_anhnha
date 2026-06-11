@@ -131,6 +131,16 @@ class AuthService
             }
             $userId = $decoded->id;
             $user = User::find($userId);
+            $permissions = $user->roles()->with('permissions')->get();
+            $permissonValues = [];
+            foreach ($permissions as $item) {
+                foreach ($item->permissions as $permission) {
+                    if (!in_array($permission->name, $permissonValues)) {
+                        $permissonValues[] = $permission->name;
+                    }
+                }
+            }
+            $user->permissions = $permissonValues;
             return $user;
         } catch (Exception $e) {
             return false;
