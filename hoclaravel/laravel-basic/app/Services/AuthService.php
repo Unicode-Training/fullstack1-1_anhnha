@@ -2,7 +2,9 @@
 
 namespace App\Services;
 
+use App\Mail\SendNotificationAfterLogin;
 use App\Models\User;
+use App\Notifications\LoginNotification;
 use Error;
 use Exception;
 use Firebase\JWT\JWT;
@@ -10,6 +12,7 @@ use Firebase\JWT\Key;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redis;
 
 class AuthService
@@ -46,7 +49,13 @@ class AuthService
         ];
         $ttlRefreshToken = $refreshTokenDecoded->exp - time();
         Redis::setEx($key, $ttlRefreshToken, json_encode($value)); //set ttl bằng thời gian sống của refresh token
-
+        //Gửi email
+        Mail::to($user)->send(new SendNotificationAfterLogin($user));
+        //  $client = [
+        //     'userAgent' => request()->userAgent()
+        // ];
+        // $user->notify(new LoginNotification((object)$client));
+       
         return compact('accessToken', 'refreshToken');
     }
 

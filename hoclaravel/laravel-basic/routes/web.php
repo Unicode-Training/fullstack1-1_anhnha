@@ -1,5 +1,6 @@
 <?php
 
+use App\Jobs\WriteFileLarge;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -64,6 +65,7 @@ Route::get('/test', function() {
 
     // // dd(Custom::where());
     // dd($custom->where());
+    WriteFileLarge::dispatch();
 });
 
 //User::where()->orderBy()->get();
