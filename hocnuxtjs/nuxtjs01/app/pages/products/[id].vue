@@ -15,6 +15,7 @@
     </div>
     <div>
       <h1 class="text-3xl">{{ product.title }}</h1>
+      <p>Price: {{ product.price.toLocaleString() }}</p>
     </div>
   </div>
 </template>
