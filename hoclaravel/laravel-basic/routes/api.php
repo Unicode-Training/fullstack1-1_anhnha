@@ -12,11 +12,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/products', [ProductController::class, 'index']);
 Route::get('/products/{id}', [ProductController::class, 'find']);
-Route::middleware(AuthMiddleware::class)->group(function () {
-    Route::post('/products', [ProductController::class, 'create']);
-    Route::patch('/products/{id}', [ProductController::class, 'update']);
-    Route::delete('/products/{id}', [ProductController::class, 'delete']);
-});
+Route::post('/products', [ProductController::class, 'create']);
+Route::patch('/products/{id}', [ProductController::class, 'update']);
+Route::delete('/products/{id}', [ProductController::class, 'delete']);
 
 Route::post('/auth/login', [AuthController::class, 'login']);
 Route::post('/auth/register', [AuthController::class, 'register']);

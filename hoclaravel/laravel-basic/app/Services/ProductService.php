@@ -23,7 +23,7 @@ class ProductService
         //$data là body
         return Product::create([
             ...$data,
-            'added_by' => $user->id
+            // 'added_by' => $user->id
         ]);
     }
 
@@ -32,7 +32,7 @@ class ProductService
         //where
         $status = Product::where('id', $id)->update([
             ...$data,
-            'updated_by' => $user->id
+            // 'updated_by' => $user->id
         ]);
         if (!$status) {
             return false;
