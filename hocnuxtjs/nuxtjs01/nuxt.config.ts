@@ -12,6 +12,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       apiServer: process.env.NUXT_PUBLIC_API_SERVER,
+      laravelServer: process.env.NUXT_PUBLIC_LARAVEL_SERVER
     },
     geminiKey: process.env.GEMINI_KEY
   }
