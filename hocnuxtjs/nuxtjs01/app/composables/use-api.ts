@@ -1,22 +1,25 @@
 import { getAccessToken, getRefreshToken, saveToken } from "~~/utils/utils";
 
-export const useApi = async () => {
+export const useApi = async <T>(url: string,) => {
     const config = useRuntimeConfig();
     const reqHeaders = useRequestHeaders(["cookie"]);
-    const { data: user } = await useFetch<{ name: string }>(
-        `${config.public.laravelServer}/auth/profile`,
+    const resHeaders = useResponseHeader('x-accessToken');
+
+    const query = await useFetch<T>(
+        `${config.public.laravelServer}${url}`,
         {
-            server: false,
+
             async onRequest({ request, options }) {
                 const accessToken = await getAccessToken(reqHeaders);
+
                 if (accessToken) {
                     const headers = new Headers(options.headers || {});
-                    headers.set("Authorization", `Bearer ${accessToken}`);
+                    headers.set("Authorization", `Bearer ${resHeaders.value ?? accessToken}`);
                     options.headers = headers;
                 }
             },
             async onResponseError({ request, response, options }) {
-                if (response.status === 401) {
+                if (response.status === 401 && !resHeaders.value) {
                     const refreshToken = await getRefreshToken(reqHeaders);
                     try {
                         const newToken = await $fetch<{
@@ -26,19 +29,16 @@ export const useApi = async () => {
                             body: { refreshToken },
                         });
 
-                        if (import.meta.server) {
-
-                            return;
-                        }
-
                         await saveToken(newToken.data);
+
+                        await query.refresh();
                     } catch (error) {
                         console.log(error);
                     }
                 }
             },
         },
-    )
+    );
 
-    return { user }
+    return query;
 }

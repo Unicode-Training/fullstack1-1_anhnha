@@ -17,4 +17,7 @@ watch(
     immediate: true,
   },
 );
+definePageMeta({
+  middleware: "auth",
+});
 </script>
