@@ -9,15 +9,17 @@
         <RouterLink to="/register">Register</RouterLink>
       </li>
     </template>
+
     <template v-else="user">
       <li>Chào: {{ user!.name }}</li>
-      <li>Logout</li>
+      <li><RouterLink to="/accounts">Accounts</RouterLink></li>
+      <li @click="userGlobal = null">Logout</li>
     </template>
   </ul>
 </template>
 <script lang="ts" setup>
 const { data: user, pending } = await useApi<{ name: string }>(`/auth/profile`);
-
+const userGlobal = useState("auth-user", () => null);
 //1. Client -> Nuxt -> Cookie -> Backend
 //2. Client -> Api backend -> Nuxt -> Client -> Backend
 

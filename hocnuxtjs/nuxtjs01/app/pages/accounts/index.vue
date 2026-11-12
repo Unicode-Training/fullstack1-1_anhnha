@@ -5,7 +5,10 @@
   </button>
 </template>
 <script lang="ts" setup>
-const { data: user, refresh } = await useApi<{ name: string }>("/auth/profile");
+const { data: user, refresh } = await useApi<{ name: string }>(
+  "/auth/profile2",
+);
+console.log(user);
 const handleClick = async () => {
   await refresh();
 };

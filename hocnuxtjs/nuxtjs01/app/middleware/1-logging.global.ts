@@ -1,3 +1,3 @@
 export default defineNuxtRouteMiddleware((to, from) => {
-    // console.log('Logging');
+    console.log('Logging');
 })

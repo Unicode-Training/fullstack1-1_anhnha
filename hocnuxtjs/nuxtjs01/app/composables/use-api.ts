@@ -1,6 +1,6 @@
 import { getAccessToken, getRefreshToken, saveToken } from "~~/utils/utils";
 
-export const useApi = async <T>(url: string,) => {
+export const useApi = async <T>(url: string) => {
     const config = useRuntimeConfig();
     const reqHeaders = useRequestHeaders(["cookie"]);
     const resHeaders = useResponseHeader('x-accessToken');
@@ -42,3 +42,20 @@ export const useApi = async <T>(url: string,) => {
 
     return query;
 }
+
+/*
+export const a = () => {}
+
+export const b = () => {}
+
+const c = 10;
+
+export default function ds() {}
+
+// export default {a, b}
+
+// export default c;
+
+import c, {a, b as _b} from "./ten-file";
+
+*/
